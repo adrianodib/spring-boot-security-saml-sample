@@ -16,11 +16,14 @@
 
 package com.vdenotaris.spring.boot.security.saml.web.controllers;
 
+import org.opensaml.xml.util.XMLHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.saml.SAMLCredential;
+import org.springframework.security.saml.util.SAMLUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +45,17 @@ public class LandingController {
 		else
 			LOG.debug("Current authentication instance from security context: "
 					+ this.getClass().getSimpleName());
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        SAMLCredential credential = (SAMLCredential) authentication.getCredentials();
+        
+        try {
+        	String xmlAssertion = XMLHelper.nodeToString(SAMLUtil.marshallMessage(credential.getAuthenticationAssertion()));
+        	System.out.println(xmlAssertion);
+        } catch (Exception ex) {
+        	ex.printStackTrace();
+        }
+		
 		model.addAttribute("username", 	user.getUsername());
 		return "pages/landing";
 	}

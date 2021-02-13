@@ -216,6 +216,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements I
         Map<String, String> passwords = new HashMap<String, String>();
         passwords.put("apollo", "nalle123");
         String defaultKey = "apollo";
+//    	DefaultResourceLoader loader = new DefaultResourceLoader();
+//        Resource storeFile = loader
+//                .getResource("classpath:/saml/adfs1Keystore.jks");
+//        String storePass = "changeme";
+//        Map<String, String> passwords = new HashMap<String, String>();
+////        passwords.put("adfs1.testesaml.local", "changeme");
+//        String defaultKey = "adfs1.testesaml.local";
         return new JKSKeyManager(storeFile, storePass, passwords, defaultKey);
     }
     
@@ -258,7 +265,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements I
 	@Qualifier("idp-ssocircle")
 	public ExtendedMetadataDelegate ssoCircleExtendedMetadataProvider()
 			throws MetadataProviderException {
-		//String idpSSOCircleMetadataURL = "https://idp.ssocircle.com/meta-idp.xml";
+//		String idpSSOCircleMetadataURL = "https://idp.ssocircle.com/meta-idp.xml";
 		String idpSSOCircleMetadataURL = "https://adfs1.testesaml.local/FederationMetadata/2007-06/FederationMetadata.xml";
 		HTTPMetadataProvider httpMetadataProvider = new HTTPMetadataProvider(
 				this.backgroundTaskTimer, httpClient(), idpSSOCircleMetadataURL);
@@ -494,6 +501,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements I
         http
         		.logout()
         			.disable();	// The logout procedure is already handled by SAML filters.
+        
+        // Enable security
+        http
+        	.requiresChannel()
+        	.anyRequest()
+        	.requiresSecure();
+        
     }
  
     /**
