@@ -1,42 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.vdenotaris.spring</groupId>
+    <groupId>br.com.assesso.dcsecurity</groupId>
     <artifactId>spring-boot-security-saml-sample</artifactId>
     <version>2.3.1.RELEASE</version>
     <packaging>jar</packaging>
     <!-- Project description -->
     <name>Spring Boot sample SAML 2.0 Service Provider</name>
     <description>A sample SAML 2.0 Service Provider built on Spring Boot.</description>
-    <url>https://github.com/vdenotaris/spring-boot-security-saml-sample</url>
-    <developers>
-        <developer>
-            <id>vdenotaris</id>
-            <name>Vincenzo De Notaris</name>
-            <email>dev@vdenotaris.com</email>
-            <timezone>CET/CEST</timezone>
-        </developer>
-    </developers>
-    <contributors>
-        <contributor>
-            <name>Vladimír Schäfer</name>
-        </contributor>
-        <contributor>
-            <name>Alexey Syrtsev</name>
-        </contributor>
-    </contributors>
-    <licenses>
-        <license>
-            <name>Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
-        </license>
-    </licenses>
-    <inceptionYear>2020</inceptionYear>
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <start-class>com.vdenotaris.spring.boot.security.saml.web.Application</start-class>
+        <start-class>br.com.assesso.dcsecurity.saml.Application</start-class>
         <jackson.version>2.9.10</jackson.version>
     </properties>
     <!-- Inherit defaults from Spring Boot -->
@@ -114,6 +90,45 @@
             <artifactId>commons-collections</artifactId>
             <version>3.2.2</version>
         </dependency>
+        <dependency>
+		    <groupId>io.springfox</groupId>
+		    <artifactId>springfox-swagger2</artifactId>
+		    <version>2.9.2</version>
+		</dependency>
+		<!-- External libs -->
+		<dependency>
+			<groupId>adf</groupId>
+			<artifactId>adf</artifactId>
+			<scope>system</scope>
+			<version>1.0</version>
+			<systemPath>${basedir}\src\lib\adf.jar</systemPath>
+		</dependency>
+		
+		<!-- PERSISTÊNCIA INICIO -->
+		<dependency>
+			<groupId>org.mariadb.jdbc</groupId>
+			<artifactId>mariadb-java-client</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-envers</artifactId>
+		</dependency>
+		<!-- PERSISTÊNCIA FIM -->
+		
+		<!-- Password Validation -->
+		<dependency>
+			<groupId>org.passay</groupId>
+			<artifactId>passay</artifactId>
+			<version>1.0</version>
+		</dependency>
+		
+		
     </dependencies>
     <scm>
         <connection>scm:git:git@github.com:vdenotaris/spring-boot-security-saml-sample.git</connection>
